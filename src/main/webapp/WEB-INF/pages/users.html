@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User's info</title>
+</head>
+<body>
+<h1>Table with all users: </h1>
+<style>
+    table {
+        background: #181818; /* Цвет фона таблицы */
+        color: #262525; /* Цвет текста */
+        border-spacing: 1px; /* Расстояние между ячейками */
+    }
+    td, th {
+        background: #b6b2b2; /* Цвет фона ячеек */
+        padding: 5px; /* Поля вокруг текста */
+    }
+</style>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>NAME</th>
+        <th>SURNAME</th>
+        <th>AGE</th>
+        <th>AVAILABLE OPERATIONS</th>
+    </tr>
+    <tr th:each="user : ${usersList}">
+        <td th:text="${user.getId()}">ID</td>
+        <td th:text="${user.getName()}">NAME</td>
+        <td th:text="${user.getSurname()}">SURNAME</td>
+        <td th:text="${user.getAge()}">AGE</td>
+        <td><a th:href="@{/users/{id}(id=${user.getId()})}">[Show user info]</a>&emsp;<a th:href="@{/users/{id}/edit(id=${user.getId()})}">[Update user info]</a></td>
+    </tr>
+</table>
+<br/>
+<form th:method="GET" action="/users/add">
+    <input type="submit" value="Add new user">
+</form>
+</body>
+</html>

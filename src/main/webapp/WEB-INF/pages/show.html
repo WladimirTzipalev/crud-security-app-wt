@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User info</title>
+</head>
+<body>
+<h1>User info: </h1>
+<style>
+    table {
+        background: #181818; /* Цвет фона таблицы */
+        color: #262525; /* Цвет текста */
+        border-spacing: 1px; /* Расстояние между ячейками */
+    }
+    td, th {
+        background: #b6b2b2; /* Цвет фона ячеек */
+        padding: 5px; /* Поля вокруг текста */
+    }
+</style>
+<table th:border="1">
+    <tr>
+        <th>NAME</th>
+        <th>SURNAME</th>
+        <th>AGE</th>
+    </tr>
+    <tr>
+        <td th:text="${user.name}">Name</td>
+        <td th:text="${user.surname}">Surname</td>
+        <td th:text="${user.age}">Age</td>
+    </tr>
+</table>
+<br/>
+<form th:method="DELETE" th:action="@{/users/{id}(id=${user.getId()})}">
+    <input type="submit" value="Delete user">
+</form>
+<br/>
+<form th:method="GET" action="/users">
+    <input type="submit" value="Return to main page">
+</form>
+</body>
+</html>
