@@ -3,13 +3,12 @@ package web.dao;
 
 import web.model.User;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-@Transactional(readOnly = true)
+//@Transactional(readOnly = true) <- replaced to [service]
 public class UserDaoImpl implements UserDao{
 
     @PersistenceContext
@@ -25,19 +24,19 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    @Transactional
+    //@Transactional <- replaced to [service]
     public void addUser(User user) {
         entityManager.persist(user);
     }
 
     @Override
-    @Transactional
+    //@Transactional <- replaced to [service]
     public void updateUser(User user) {
         entityManager.merge(user);
     }
 
     @Override
-    @Transactional
+    //@Transactional <- replaced to [service]
     public void removeUser(Long id) {
         User user = entityManager.find(User.class, id);
         entityManager.remove(user);
