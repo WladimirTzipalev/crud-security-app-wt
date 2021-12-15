@@ -6,11 +6,11 @@ import java.util.List;
 public interface UserDao {
     List<User> getAllUsers();
 
-    User showUserById(Long id);
+    User getById(Long id);
 
-    void addUser(User user);
+    User getByLogin(String email);
 
-    void updateUser(User user);
+    void save(User user);
 
-    void removeUser(Long id);
+    void delete(Long id);
 }

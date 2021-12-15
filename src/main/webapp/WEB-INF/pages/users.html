@@ -20,22 +20,37 @@
 <table border="1">
     <tr>
         <th>ID</th>
+        <th>E-MAIL</th>
+        <th>PASSWORD</th>
         <th>NAME</th>
         <th>SURNAME</th>
         <th>AGE</th>
-        <th>AVAILABLE OPERATIONS</th>
+        <th>ROLES</th>
+        <th colspan="2">AVAILABLE OPERATIONS</th>
     </tr>
     <tr th:each="user : ${usersList}">
         <td th:text="${user.getId()}">ID</td>
+        <td th:text="${user.getEmail()}">E-MAIL</td>
+        <td th:text="${user.getPassword()}">PASSWORD</td>
         <td th:text="${user.getName()}">NAME</td>
         <td th:text="${user.getSurname()}">SURNAME</td>
         <td th:text="${user.getAge()}">AGE</td>
-        <td><a th:href="@{/users/{id}(id=${user.getId()})}">[Show user info]</a>&emsp;<a th:href="@{/users/{id}/edit(id=${user.getId()})}">[Update user info]</a></td>
+        <td>
+            <span th:each="role : ${user.getAuthorities()}" id="role">
+                <span th:text="${role.getAuthority()}">ROLES</span>
+            </span>
+        </td>
+        <td><a th:href="@{/admin/users/{id}(id=${user.getId()})}">[Show user info]</a></td>
+        <td><a th:href="@{/admin/users/{id}/edit(id=${user.getId()})}">[Update user info]</a></td>
     </tr>
 </table>
 <br/>
-<form th:method="GET" action="/users/add">
+<form th:method="GET" action="/admin/users/add">
     <input type="submit" value="Add new user">
+</form>
+<br/>
+<form th:method="GET" action="/logout">
+    <input type="submit" value="Logout">
 </form>
 </body>
 </html>

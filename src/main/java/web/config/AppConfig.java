@@ -18,7 +18,7 @@ import java.util.Properties;
 @Configuration
 @PropertySource("classpath:db.properties")
 @EnableTransactionManagement
-@ComponentScan("web")
+@ComponentScan
 public class AppConfig {
 
     @Autowired
@@ -40,7 +40,6 @@ public class AppConfig {
                 new LocalContainerEntityManagerFactoryBean();
         entityManagerFactoryBean.setDataSource(getDataSource());
         entityManagerFactoryBean.setPackagesToScan("web.model");
-
         entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         entityManagerFactoryBean.setJpaProperties(additionalProperties());
         return entityManagerFactoryBean;
@@ -57,7 +56,7 @@ public class AppConfig {
         Properties properties = new Properties();
         properties.setProperty("hibernate.dialect.MySQLDialect", environment.getProperty("hibernate.dialect.MySQLDialect"));
         properties.setProperty("hibernate.hbm2ddl.auto", environment.getProperty("hibernate.hbm2ddl.auto"));
-        properties.setProperty("hibernate.hbm2ddl.import_files", environment.getProperty("hibernate.hbm2ddl.import_files"));
+        properties.setProperty("hibernate.show_sql", environment.getProperty("hibernate.show_sql"));
         return properties;
     }
 }

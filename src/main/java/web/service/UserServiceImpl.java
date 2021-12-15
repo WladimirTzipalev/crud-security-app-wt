@@ -1,6 +1,7 @@
 package web.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import web.dao.UserDao;
@@ -8,11 +9,14 @@ import web.model.User;
 import java.util.List;
 
 @Service
-@Transactional(readOnly = true)
+@Transactional
 public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Override
     public List<User> getAllUsers() {
@@ -20,25 +24,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User showUserById(Long id) {
-        return userDao.showUserById(id);
+    public User getById(Long id) {
+        return userDao.getById(id);
     }
 
     @Override
-    @Transactional
-    public void addUser(User user) {
-        userDao.addUser(user);
+    public void save(User user) {
+        String encryptedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encryptedPassword);
+        userDao.save(user);
     }
 
     @Override
-    @Transactional
-    public void updateUser(User user) {
-        userDao.updateUser(user);
+    public void delete(Long id) {
+        userDao.delete(id);
     }
 
     @Override
-    @Transactional
-    public void removeUser(Long id) {
-        userDao.removeUser(id);
+    public User getByLogin(String email) {
+        return userDao.getByLogin(email);
     }
 }
