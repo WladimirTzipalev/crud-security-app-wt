@@ -84,7 +84,7 @@ public class UserController {
         } else {
             user.addRole(roleService.findById(2L));
         }
-        userService.save(user);
+        userService.update(user);
         return "redirect:/admin/users";
     }
 
