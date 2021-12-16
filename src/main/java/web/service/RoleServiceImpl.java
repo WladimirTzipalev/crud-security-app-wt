@@ -15,11 +15,13 @@ public class RoleServiceImpl implements RoleService {
     RoleDao roleDao;
 
     @Override
+    @Transactional(readOnly = true)
     public List<Role> getAllRoles() {
         return roleDao.getAllRoles();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Role findById(Long id) {
         return roleDao.findById(id);
     }
